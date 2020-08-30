@@ -8,15 +8,9 @@ new Vue({
     };
   },
 
-  mounted() {
-    axios.get(url).then((response) => (this.info = response.data));
+  async created() {
+    const result = await axios.get(url);
 
-    this.info.sort(function (a, b) {
-      if (a.score < b.score) return 1;
-      if (a.score > b.score) return -1;
-      return 0;
-    });
-
-    setTimeout("location.reload()", 10000);
+    this.info = result.data.sort((a, b) => a.score - b.score);
   },
 });
