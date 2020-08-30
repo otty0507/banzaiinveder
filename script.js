@@ -3,10 +3,8 @@ const url =
 
 new Vue({
   el: "#app",
-  data() {
-    return {
-      info: null,
-    };
+  data: {
+    info: null,
   },
 
   async created() {
