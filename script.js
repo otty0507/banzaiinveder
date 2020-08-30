@@ -18,7 +18,12 @@ new Vue({
 
   created() {
     this.updateInfo();
-    this.intervalId = setInterval(this.updateInfo, 1000);
+
+    this.intervalId = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+
+      this.updateInfo();
+    }, 1000);
   },
 
   beforeDestroy() {
