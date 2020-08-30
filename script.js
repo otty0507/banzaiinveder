@@ -13,5 +13,6 @@ new Vue({
     const result = await axios.get(url);
 
     this.info = result.data.sort((a, b) => b.score - a.score);
+    setTimeout("location.reload()", 10000);
   },
 });
