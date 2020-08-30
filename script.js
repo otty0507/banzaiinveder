@@ -7,10 +7,15 @@ new Vue({
     info: null,
   },
 
-  async created() {
+  methods: {
+    async updateInfo() {
     const result = await axios.get(url);
 
     this.info = result.data.sort((a, b) => b.score - a.score);
-    setTimeout("location.reload()", 10000);
+    },
+  },
+
+  created() {
+    this.updateInfo();
   },
 });
