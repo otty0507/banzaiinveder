@@ -3,16 +3,30 @@ const url =
 
 new Vue({
   el: "#app",
-  data() {
-    return {
-      info: null,
-    };
+  data: {
+    info: null,
+    intervalId: null,
   },
 
-  async created() {
-    const result = await axios.get(url);
+  methods: {
+    async updateInfo() {
+      const result = await axios.get(url);
 
-    this.info = result.data.sort((a, b) => b.score - a.score);
-    setTimeout("location.reload()", 10000);
+      this.info = result.data.sort((a, b) => b.score - a.score);
+    },
+  },
+
+  created() {
+    this.updateInfo();
+
+    this.intervalId = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+
+      this.updateInfo();
+    }, 1000);
+  },
+
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   },
 });
