@@ -12,6 +12,6 @@ new Vue({
   async created() {
     const result = await axios.get(url);
 
-    this.info = result.data.sort((a, b) => a.score - b.score);
+    this.info = result.data.sort((a, b) => b.score - a.score);
   },
 });
