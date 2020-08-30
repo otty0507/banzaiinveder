@@ -5,17 +5,23 @@ new Vue({
   el: "#app",
   data: {
     info: null,
+    intervalId: null,
   },
 
   methods: {
     async updateInfo() {
-    const result = await axios.get(url);
+      const result = await axios.get(url);
 
-    this.info = result.data.sort((a, b) => b.score - a.score);
+      this.info = result.data.sort((a, b) => b.score - a.score);
     },
   },
 
   created() {
     this.updateInfo();
+    this.intervalId = setInterval(this.updateInfo, 1000);
+  },
+
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   },
 });
